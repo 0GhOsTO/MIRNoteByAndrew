@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIR Notes by Andrew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tiempos+Text:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: #f5f1eb;
+      color: #1a1410;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 72px 24px;
+    }
+
+    /* Claude-style nav bar */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: #f5f1eb;
+      border-bottom: 1px solid #e4ddd3;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .topbar-logo {
+      width: 22px;
+      height: 22px;
+    }
+
+    .topbar-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a1410;
+      letter-spacing: -0.2px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 56px;
+      margin-top: 20px;
+    }
+
+    header h1 {
+      font-family: 'Tiempos Text', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      color: #1a1410;
+      line-height: 1.2;
+    }
+
+    header p {
+      margin-top: 14px;
+      color: #7a6a5a;
+      font-size: 0.95rem;
+      max-width: 460px;
+      line-height: 1.65;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: #fefcf8;
+      border: 1px solid #e4ddd3;
+      border-radius: 12px;
+      padding: 26px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #c96442;
+      box-shadow: 0 6px 24px rgba(201, 100, 66, 0.10);
+    }
+
+    .card-num {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: #c96442;
+    }
+
+    .card-title {
+      font-family: 'Tiempos Text', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1a1410;
+      line-height: 1.4;
+    }
+
+    .card-desc {
+      font-size: 0.855rem;
+      color: #7a6a5a;
+      line-height: 1.65;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #c96442;
+    }
+
+    .card-footer svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    footer {
+      margin-top: 72px;
+      color: #b8a898;
+      font-size: 0.78rem;
+    }
+
+    .intro {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 48px;
+      background: #fefcf8;
+      border: 1px solid #e4ddd3;
+      border-radius: 14px;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #c96442, #e8a87c);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .intro-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: #c96442;
+    }
+
+    .intro h2 {
+      font-family: 'Tiempos Text', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #1a1410;
+      line-height: 1.35;
+    }
+
+    .intro p {
+      font-size: 0.92rem;
+      color: #5a4a3a;
+      line-height: 1.75;
+      max-width: 720px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Claude-style top bar -->
+  <nav class="topbar">
+    <!-- Claude-style sunburst logo -->
+
+    <span class="topbar-name">MIR Notes</span>
+  </nav>
+
+  <header>
+    <h1>MIR Notes by Andrew</h1>
+  </header>
+
+  <section class="intro">
+    <span class="intro-label">Motivation</span>
+    <h2>Why Audio?</h2>
+    <p>Sound has always mattered to me in a personal way. After serving in the military, I came back with partial hearing loss — and that experience made me appreciate how much of life travels through audio. This notebook is my attempt to understand it computationally.</p>
+    <p>Music Information Retrieval (MIR) is the field that sits at the intersection of signal processing, machine learning, and musicology. The goal is to teach machines to understand sound the way humans do — to recognize genre, detect tempo, separate instruments, and more. These chapters represent my journey to understand it step by step.</p>
+  </section>
+  <div class="grid">
+
+    <a class="card" href="chapter1.ipynb">
+      <span class="card-num">Chapter 1</span>
+      <span class="card-title">Basic Musical Representations and MIR</span>
+      <span class="card-desc">Introduction to Music Information Retrieval — how computers represent, analyze, and understand music across music theory, signal processing, and machine learning.</span>
+      <span class="card-footer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        Open notebook
+      </span>
+    </a>
+
+    <a class="card" href="chapter2.ipynb">
+      <span class="card-num">Chapter 2</span>
+      <span class="card-title">Audio Representations</span>
+      <span class="card-desc">Exploring how audio signals are represented digitally — waveforms, spectrograms, and the fundamental building blocks of audio analysis.</span>
+      <span class="card-footer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        Open notebook
+      </span>
+    </a>
+
+    <a class="card" href="chapter3.ipynb">
+      <span class="card-num">Chapter 3</span>
+      <span class="card-title">Features and Applications</span>
+      <span class="card-desc">Extracting meaningful features from audio and applying them to real-world MIR tasks such as genre classification, beat tracking, and more.</span>
+      <span class="card-footer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        Open notebook
+      </span>
+    </a>
+
+  </div>
+
+  <footer>MIRNoteByAndrew &mdash; Andrew &copy; 2026</footer>
+
+</body>
+</html>
