@@ -21,4 +21,4 @@ pip install git+https://github.com/musicinformationretrieval/musicinformationret
 
 ## Web
 
-[0ghosto.github.io/MIRNoteByAndrew](https://0ghosto.github.io/MIRNoteByAndrew/)
+[mir-note-by-andrew](https://mir-note-by-andrew.vercel.app/)
