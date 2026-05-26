@@ -1,0 +1,7 @@
+ipython
+librosa
+matplotlib
+numpy
+scipy
+scikit-learn
+git+https://github.com/musicinformationretrieval/musicinformationretrieval.com.git
