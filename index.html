@@ -53,6 +53,62 @@
       flex-shrink: 0;
     }
 
+    .sidebar-close,
+    .menu-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      display: none;
+      place-items: center;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .sidebar-close:hover,
+    .menu-button:hover {
+      background: var(--accent-soft);
+      border-color: rgba(201,100,66,0.28);
+    }
+
+    .sidebar-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      margin-left: auto;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .menu-button {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      position: relative;
+    }
+
+    .menu-button span,
+    .menu-button::before,
+    .menu-button::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      display: block;
+      transform: translate(-50%, -50%);
+    }
+
+    .menu-button::before { transform: translate(-50%, calc(-50% - 5px)); }
+    .menu-button::after { transform: translate(-50%, calc(-50% + 5px)); }
+
+    .sidebar-backdrop {
+      display: none;
+    }
+
     .sidebar-brand-mark {
       width: 26px; height: 26px;
       border-radius: 7px;
@@ -429,9 +485,41 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 820px) {
-      .sidebar { display: none; }
+      .sidebar {
+        display: flex;
+        width: min(82vw, 300px);
+        transform: translateX(-100%);
+        transition: transform 0.22s ease;
+        box-shadow: 18px 0 40px rgba(26,20,16,0.14);
+      }
+
+      body.sidebar-open { overflow: hidden; }
+      body.sidebar-open .sidebar { transform: translateX(0); }
+
+      .sidebar-close,
+      .menu-button {
+        display: grid;
+      }
+
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 150;
+        background: rgba(26,20,16,0.36);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s ease;
+        display: block;
+      }
+
+      body.sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
       .main-content { margin-left: 0; }
       :root { --gutter: 20px; }
+      .topbar .wrap { justify-content: space-between; }
       .hero { padding: 56px 0 64px; }
       .quote-section { padding: 56px 0; }
       .grid { grid-template-columns: 1fr; }
@@ -440,10 +528,11 @@
 </head>
 <body>
 
-  <aside class="sidebar" aria-label="Note navigation">
+  <aside id="note-sidebar" class="sidebar" aria-label="Note navigation">
     <div class="sidebar-head">
       <span class="sidebar-brand-mark" aria-hidden="true"></span>
       <span class="sidebar-brand-text">MIR Notes</span>
+      <button class="sidebar-close" type="button" aria-label="Close note navigation" aria-controls="note-sidebar">&times;</button>
     </div>
     <div class="sidebar-section-label">Notes</div>
     <nav class="sidebar-nav">
@@ -487,13 +576,27 @@
         <span class="sidebar-num">08</span>
         <span class="sidebar-title">Energy &amp; RMSE</span>
       </a>
+      <a class="sidebar-link" href="https://github.com/0GhOsTO/MIRNoteByAndrew/blob/main/Note9.ipynb" target="_blank" rel="noopener">
+        <span class="sidebar-dot" style="background:#8a8f3d"></span>
+        <span class="sidebar-num">09</span>
+        <span class="sidebar-title">Zero Crossing Rate</span>
+      </a>
+      <a class="sidebar-link" href="https://github.com/0GhOsTO/MIRNoteByAndrew/blob/main/Note10.ipynb" target="_blank" rel="noopener">
+        <span class="sidebar-dot" style="background:#4f6abf"></span>
+        <span class="sidebar-num">10</span>
+        <span class="sidebar-title">Fourier Transform</span>
+      </a>
     </nav>
   </aside>
+  <div class="sidebar-backdrop" hidden></div>
 
   <div class="main-content">
 
     <nav class="topbar" aria-label="Primary navigation">
       <div class="wrap">
+        <button class="menu-button" type="button" aria-label="Open note navigation" aria-controls="note-sidebar" aria-expanded="false">
+          <span aria-hidden="true"></span>
+        </button>
         <a class="topbar-gh" href="https://github.com/0GhOsTO/MIRNoteByAndrew" target="_blank" rel="noopener">GitHub →</a>
       </div>
     </nav>
@@ -502,7 +605,7 @@
       <div class="wrap">
         <div class="hero-eyebrow">Music Information Retrieval</div>
         <h1>Notes by<br><em>Andrew</em></h1>
-        <p class="hero-sub">Eight notebooks covering symbolic music, audio signals, tuning systems, frequency mapping, onset detection, classification, segmentation, and signal energy.</p>
+        <p class="hero-sub">Ten notebooks covering symbolic music, audio signals, tuning systems, frequency mapping, onset detection, classification, segmentation, signal energy, zero crossing rate, and Fourier analysis.</p>
         <div class="eq" aria-hidden="true">
           <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
           <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
@@ -525,7 +628,7 @@
       <div class="wrap">
         <div class="section-header">
           <span class="section-eyebrow">Chapters</span>
-          <h2 class="section-title">All Notebooks <span>8 total</span></h2>
+          <h2 class="section-title">All Notebooks <span>10 total</span></h2>
         </div>
 
         <div class="grid" aria-label="Notebook chapters">
@@ -610,6 +713,26 @@
             </div>
           </a>
 
+          <a id="note-9" class="card" href="https://github.com/0GhOsTO/MIRNoteByAndrew/blob/main/Note9.ipynb" target="_blank" rel="noopener">
+            <div class="card-stripe" style="background:linear-gradient(90deg,#8a8f3d,#c3c86a)"></div>
+            <div class="card-body">
+              <div class="card-top"><span class="chapter">Note 9</span><span class="topic">ZCR</span></div>
+              <h3 class="card-title">Zero Crossing Rate</h3>
+              <p class="card-desc">Explains zero crossings as signal sign changes, shows how librosa detects crossings with and without padding, and calculates zero crossing rate as a frame-level feature for identifying how quickly an audio waveform oscillates.</p>
+              <span class="card-footer"><span class="arrow">→</span> Open notebook</span>
+            </div>
+          </a>
+
+          <a id="note-10" class="card" href="https://github.com/0GhOsTO/MIRNoteByAndrew/blob/main/Note10.ipynb" target="_blank" rel="noopener">
+            <div class="card-stripe" style="background:linear-gradient(90deg,#4f6abf,#8399df)"></div>
+            <div class="card-body">
+              <div class="card-top"><span class="chapter">Note 10</span><span class="topic">Spectrum</span></div>
+              <h3 class="card-title">Fourier Transform</h3>
+              <p class="card-desc">Introduces Fourier analysis as a bridge from time-domain audio to frequency-domain representations, then applies FFT and STFT concepts to inspect magnitudes, frequency bins, window positions, hop length, and musical spectrogram structure.</p>
+              <span class="card-footer"><span class="arrow">→</span> Open notebook</span>
+            </div>
+          </a>
+
         </div>
       </div>
     </section>
@@ -622,5 +745,25 @@
 
   </div>
 
+  <script>
+    const sidebar = document.querySelector(".sidebar");
+    const menuButton = document.querySelector(".menu-button");
+    const closeButton = document.querySelector(".sidebar-close");
+    const backdrop = document.querySelector(".sidebar-backdrop");
+
+    const setSidebar = (isOpen) => {
+      document.body.classList.toggle("sidebar-open", isOpen);
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      backdrop.hidden = !isOpen;
+    };
+
+    menuButton.addEventListener("click", () => setSidebar(true));
+    closeButton.addEventListener("click", () => setSidebar(false));
+    backdrop.addEventListener("click", () => setSidebar(false));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setSidebar(false);
+    });
+  </script>
 </body>
 </html>
