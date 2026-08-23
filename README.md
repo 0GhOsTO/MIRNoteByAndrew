@@ -2,6 +2,8 @@
 
 A hands-on study of **Music Information Retrieval (MIR)** at the intersection of **signal processing, machine learning, and music analysis**. The project uses reproducible Python/Jupyter experiments to understand how audio is represented, transformed, and converted into features for downstream audio-processing algorithms.
 
+I became interested in understanding sound computationally after experiencing temporary hearing loss during military service; my hearing later recovered. That experience motivated me to study how sound can be represented and analyzed through signal processing and computation.
+
 > **Status:** In progress — expanding the notes and experiments throughout **Fall 2026**.
 
 ## Current Focus
